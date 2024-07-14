@@ -7,10 +7,10 @@
       command: sudo apt-get update
       
     - name: Install Docker
-        command: sudp apt-get install -y docker.io
+        command: sudo apt-get install -y docker.io
 
     - name: Start Docker service
-        command:sudo systemctl start docker
+        command: sudo systemctl start docker
   
     - name: Deploy Docker container
     command: docker run -itd -p 8084:8081 ranjitasm/banking-project:1.0
