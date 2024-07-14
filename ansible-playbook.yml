@@ -11,9 +11,10 @@
 
   - name : Start Docker Service
     command : sudo systemctl start docker
+    
   - name: Docker Login
-    command: docker login -u ranjitasm -p <your_docker_password>
-    no_log: true  # This will hide the password in logs for security reasons
-
+    command: docker login -u ranjitasm -p "{{ dockerpass }}"
+    no_log: true
+  
   - name: Deploy Docker Container
     command: docker run -itd -p 9090:8081 ranjitasm/banking-project:1.0
