@@ -13,4 +13,4 @@
     command : sudo systemctl start docker
 
   - name: Deploy Docker Container
-    command: docker run -itd -p 1111:8090 ranjitasm/banking-project:1.0
+    command: docker run -itd -p 9090:8081 ranjitasm/banking-project:1.0
