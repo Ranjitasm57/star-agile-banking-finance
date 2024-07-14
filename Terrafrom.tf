@@ -15,7 +15,7 @@ provider "aws" {
 
 # Creating a VPC
 resource "aws_vpc" "Ranjita_vpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = "172.20.0.0/16"
 }
 
 # Create an Internet Gateway
@@ -46,7 +46,7 @@ resource "aws_route_table" "Ranjita_RT" {
 # Setting up the subnet
 resource "aws_subnet" "Ranjita_subnet" {
   vpc_id = aws_vpc.Ranjita_vpc.id
-  cidr_block = "10.0.1.0/24"
+  cidr_block = "172.20.10.0/24"
   availability_zone = "ap-south-1b"
   tags = {
     Name = "Ranjita_subnet"
@@ -106,7 +106,7 @@ resource "aws_security_group" "Ranjita_SG" {
 # Creating a new network interface
 resource "aws_network_interface" "Production_interface" {
   subnet_id = aws_subnet.Ranjita_subnet.id
-  private_ips = ["10.0.1.10"]
+  private_ips = ["172.20.10.10"]
   security_groups = [aws_security_group.Ranjita_SG.id]
 }
 
@@ -133,6 +133,6 @@ resource "aws_instance" "Production_Server" {
 resource "aws_eip" "Ranjita_eip" {
   vpc = true
   network_interface = aws_network_interface.Production_interface.id
-  associate_with_private_ip = "10.0.1.10"
+  associate_with_private_ip = "172.20.10.10"
   depends_on = [aws_instance.Production_Server]
 }
