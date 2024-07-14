@@ -1,26 +1,17 @@
 - name: Configure Docker on EC2 Instances
   hosts: all
   become: true
+  connection: ssh
   tasks:
-    - name: Update apt package list
-      apt:
-        update_cache: yes
-
+    - name: Updating apt 
+      command: sudo apt-get update
+      
     - name: Install Docker
-      apt:
-        name: docker.io
-        state: present
+        name: sudp apt-get install -y docker.io
 
-    - name: Start and enable Docker service
-      service:
-        name: docker
-        state: started
-        enabled: yes
-
+    - name: Start Docker service
+        name:sudo systemctl start docker
+        
     - name: Deploy Docker container
-      docker_container:
-        name: banking_project
-        image: ranjitasm/banking-project:1.0
-        state: started
-        ports:
-          - "8084:8081"
+    command: docker run -itd -p 8084:8081 ranjitasm/banking-project:1.0
+    
