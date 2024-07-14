@@ -110,13 +110,6 @@ resource "aws_network_interface" "Production_interface" {
   security_groups = [aws_security_group.Ranjita_SG.id]
 }
 
-# Attaching an elastic IP to the network interface
-resource "aws_eip" "Ranjita_eip" {
-  vpc = true
-  network_interface = aws_network_interface.Production_interface.id
-  associate_with_private_ip = "10.0.1.10"
-}
-
 # Creating an Ubuntu EC2 instance
 resource "aws_instance" "Production_Server" {
   ami = "ami-0ef82eeba2c7a0eeb"
@@ -134,4 +127,12 @@ resource "aws_instance" "Production_Server" {
   tags = {
     Name = "Prod-Server"
   }
+}
+
+# Attaching an elastic IP to the network interface
+resource "aws_eip" "Ranjita_eip" {
+  vpc = true
+  network_interface = aws_network_interface.Production_interface.id
+  associate_with_private_ip = "10.0.1.10"
+  depends_on = [aws_instance.Production_Server]
 }
